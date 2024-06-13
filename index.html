@@ -7,12 +7,55 @@
     <p>A score of around 80 is the desired score at the end of the semester</p>
     <script src="functions.js"></script>
     <script>
+        const gradeContents = `89
+92
+96
+79
+90
+88
+91
+94
+94
+85
+90
+86
+91
+100
+94
+90
+91
+95
+97
+99
+96
+95
+96
+94
+100
+95
+95
+92
+06
+102
+96
+99
+94
+98
+96
+89
+99
+101`;
+
+        const attendanceContents = `3
+5
+2
+4
+6
+7`;
+
         async function calculateChanges() {
             const gradesInput = document.getElementById('gradesInput').value;
             const attendanceInput = document.getElementById('attendanceInput').value;
-
-            const gradeContents = await fetch('grades.txt').then(response => response.text());
-            const attendanceContents = await fetch('attendance.txt').then(response => response.text());
 
             const grades = stringToGrades(gradeContents);
             const attendance = stringToAttendance(attendanceContents);
