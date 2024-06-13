@@ -3,14 +3,14 @@ function stringToGrades(str) {
   const result = [];
   let currentArray = [];
   for (let i = 0; i < lines.length; i++) {
-    const line = Number(lines[i].trim());
+    const line = lines[i].trim();
     if (line === '') {
       if (currentArray.length > 0) {
         result.push(currentArray);
       }
       currentArray = [];
     } else {
-      currentArray.push(line);
+      currentArray.push(Number(line));
     }
   }
   if (currentArray.length > 0) {
@@ -42,7 +42,7 @@ function calculateStats(arr, minMax = true) {
   mean /= ct;
 
   // Calculate median
-  arr.sort();
+  arr.sort((a, b) => a - b);
   let median;
   if (arr.length % 2 === 0) {
     median = (arr[arr.length / 2 - 1] + arr[arr.length / 2]) / 2;
@@ -77,7 +77,7 @@ function calculateStats(arr, minMax = true) {
   return [Math.round(mean), median, mode, extreme];
 }
 
-function calculateDrasticChange(val, currentTardies, grade=false) {
+function calculateDrasticChange(val, currentTardies, grade = false) {
   let mean = val[0];
   let median = val[1];
   let mode = val[2];
@@ -90,14 +90,6 @@ function calculateDrasticChange(val, currentTardies, grade=false) {
 
   // Ensure the change is not negative
   const drasticChange = (meanChange + 0.5 * medianChange + 1.5 * modeChange + 2 * maxChange) / 4;
-  
+
   return (grade) ? Math.round(-drasticChange) + 80 : Math.round(drasticChange) + 80;
 }
-
-
-module.exports = {
-  stringToGrades,
-  stringToAttendance,
-  calculateStats,
-  calculateDrasticChange
-};
