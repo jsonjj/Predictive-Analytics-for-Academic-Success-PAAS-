@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade and Attendance Calculator</title>
+</head>
+<body>
+  <h1>Grade and Attendance Calculator</h1>
+  
+  <label for="grades">Enter Grades (comma separated):</label>
+  <input type="text" id="grades" name="grades">
+
+  <label for="attendance">Enter Number of Tardies:</label>
+  <input type="number" id="attendance" name="attendance">
+
+  <button onclick="calculate()">Calculate</button>
+
+  <p id="gradeChange"></p>
+  <p id="attendanceChange"></p>
+
+  <script>
+    function calculate() {
+      const gradesInput = document.getElementById("grades").value;
+      const attendanceInput = document.getElementById("attendance").value;
+
+      // Make a request to your Node.js server with these values
+      // You can use fetch or XMLHttpRequest for this
+      // For example:
+      fetch('/calculate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          grades: gradesInput,
+          attendance: attendanceInput
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("gradeChange").textContent = "Grade Change: " + data.gradeChange;
+        document.getElementById("attendanceChange").textContent = "Attendance Change: " + data.attendanceChange;
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
