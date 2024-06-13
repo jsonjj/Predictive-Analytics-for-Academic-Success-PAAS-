@@ -20,8 +20,13 @@ readline.question('Enter grades (separated by commas): ', (gradesInput) => {
     let attendanceStats = functions.calculateStats(attendance, false);
     
     let attendanceChange = functions.calculateDrasticChange(attendanceStats, Number(attendanceInput));
-    let gradeChange = functions.calculateDrasticChange(gradeStats, Number(gradesInput), true);
-
+    let gradeChange = 0;
+    let count = 0;
+    for (let gradeInput of gradesInput.split(',')) {
+      count++;
+      gradeChange += functions.calculateDrasticChange(gradeStats, Number(gradeInput), true);
+    }
+    gradeChange /= count;
     console.log(gradeChange);
     console.log(attendanceChange);
     readline.close();
